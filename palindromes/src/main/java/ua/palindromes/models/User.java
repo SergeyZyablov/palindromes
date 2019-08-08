@@ -14,6 +14,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 
@@ -25,8 +28,14 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
+	@NotEmpty(message = "The field is not filled")
+	@Size(min = 6, max = 50, message = "Login must be more than 6 characters!")
 	private String login;
+	@NotEmpty(message = "The field is not filled")
+	@Size(min = 6, max = 50, message = "Password must be more than 6 characters")
 	private String password;
+	@NotEmpty(message = "The field is not filled")
+	@Email(message = "The login specified is incorrect.")
 	private String email;
 	@ManyToOne
 	private History history;

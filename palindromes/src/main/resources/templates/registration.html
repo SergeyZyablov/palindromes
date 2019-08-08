@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="UTF-8">
+<title>Registration</title>
+<link rel="stylesheet" href="/css/indexStyle.css">
+<link rel="stylesheet" href="/css/styles.css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+</head>
+<body>
+	<div class="registration-container">
+		<div style="width: 400px" class="alert alert-primary">
+			<h3>Registration</h3>
+			<form th:action="@{/registration}" th:object="${user}" method="post">
+				<div class="form-group">
+					<label for="email">Email address</label>
+					<div class="alert alert-danger"
+						th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+					<input type="email" name="email" id="email" required autofocus
+						class="form-control" />
+				</div>
+				<label for="email">Login</label>
+				<div class="alert alert-danger"
+					th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
+				<div class="input-group mb-3">
+					<input type="text" class="form-control" placeholder="Username"
+						aria-label="Username" name="login" aria-describedby="basic-addon1">
+				</div>
+				<div class="form-group">
+					<label for="exampleInputPassword1">Password</label>
+					<div class="alert alert-danger"
+						th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+					<input type="password" class="form-control" name="password"
+						id="exampleInputPassword1" placeholder="Password">
+				</div>
+				<div class="btn-group" role="group" aria-label="Basic example">
+					<button type="submit" class="btn btn-primary">Submit</button>
+					<a class="btn btn-primary" href="/login" role="button">Log in</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
