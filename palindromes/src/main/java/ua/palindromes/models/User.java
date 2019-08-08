@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -37,8 +37,8 @@ public class User {
 	@NotEmpty(message = "The field is not filled")
 	@Email(message = "The login specified is incorrect.")
 	private String email;
-	@ManyToOne
-	private History history;
+	@OneToMany(mappedBy="user")
+	private List<History> histories;
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "users_has_roles", joinColumns = {
 			@JoinColumn(name = "users_id", nullable = false, updatable = false) }, inverseJoinColumns = {

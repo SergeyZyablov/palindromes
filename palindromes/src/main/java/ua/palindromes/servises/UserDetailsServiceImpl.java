@@ -16,8 +16,6 @@ import ua.palindromes.models.Role;
 import ua.palindromes.models.User;
 import ua.palindromes.repositories.UserRepository;
 
-
-
 @Service
 @Transactional(readOnly = true)
 public class UserDetailsServiceImpl implements UserDetailsService {

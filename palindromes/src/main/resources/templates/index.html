@@ -5,7 +5,7 @@
 	class="h-100">
 <head>
 <title>Home</title>
-<link rel="stylesheet" href="/css/loginStyle.css">
+<link rel="stylesheet" href="/css/styles.css">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -26,11 +26,84 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div sec:authorize="isAuthenticated()">This content is only shown
-		to authenticated users.</div>
-	<div sec:authorize="hasRole('admin')">This content is only
-		shown to administrators.</div>
-	<div sec:authorize="hasRole('user')">This content is only
-		shown to users.</div>
+	<div class="main-container">
+		<div class="header-container">
+			<th:block sec:authorize="isAuthenticated()">
+				<form th:action="@{/logout}" method="post">
+					<input class="btn btn-primary" type="submit" value="Sign Out" />
+				</form>
+			</th:block>
+
+			<th:block sec:authorize="isAnonymous()">
+				<form th:action="@{/logout}" method="post">
+					<input class="btn btn-primary" type="submit" value="Sign In" />
+				</form>
+			</th:block>
+		</div>
+		<div class="content-container">
+			<div class="list-group-item enter-form-container">
+				<form th:action="@{/calculation}" th:object="${history}"
+					method="post">
+					<div class="form-group">
+						<label for="email">Number</label>
+						<div class="alert alert-danger"
+							th:if="${#fields.hasErrors('number')}" th:errors="*{number}"></div>
+						<input type="number" name="number" id="number" required autofocus
+							class="form-control" />
+					</div>
+					<div class="form-group">
+						<label for="email">Number of palindromes</label>
+						<div class="alert alert-danger"
+							th:if="${#fields.hasErrors('palindromes')}"
+							th:errors="*{palindromes}"></div>
+						<input type="number" min="1" name="palindromes" id="palindromes"
+							required autofocus class="form-control" />
+					</div>
+					<button type="submit" class="btn btn-light">Find</button>
+				</form>
+			</div>
+			<div class="list-group">
+				<h2 class="list-group-item active">Result</h2>
+				<div style="overflow-x: hidden;" class="result">
+					<div class="active" th:each="result : ${result}">
+						<div style="overflow-y: hidden;" class="list-group-item "
+							th:text="${result}"></div>
+					</div>
+				</div>
+
+			</div>
+			<th:block sec:authorize="isAuthenticated()">
+				<div class="history-container">
+					<div class="histroy">
+						<h2 class="list-group-item active">History</h2>
+						<div class="list-group-item histroy2">
+							<div th:each="historyList : ${historyList}">
+								<form th:action="@{/calculation}" th:object="${history}"
+									method="post">
+									<div class="list-group-item">
+										<label style="font-weight: bold;" for="email">Number</label>
+										<div style="overflow-y: hidden;"
+											th:text="${historyList.number}"></div>
+										<label style="font-weight: bold;" for="email">Number
+											of palindromes</label>
+										<div style="overflow-y: hidden;"
+											th:text="${historyList.palindromes}"></div>
+										<div class="info">
+											<input type="text" name="number"
+												th:value="${historyList.number}" hidden /> <input
+												type="text" name="palindromes"
+												th:value="${historyList.palindromes}" hidden /> <input
+												class="btn btn-primary" type="submit" value="Result" />
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</th:block>
+		</div>
+	</div>
+
 </body>
 </html>
